@@ -21,12 +21,18 @@ int main(int args, char** argv)
     for(int i=0; i<3; i++) 
         box(wnd[i], ACS_VLINE, ACS_HLINE);
 
+    mvwprintw(wnd[1], 0, 2, " NEXT ");
+    mvwprintw(wnd[2], 0, 2, " HOLD ");
+    mvwprintw(wnd[3], 0, 0, "SCORE: ");
+    mvwprintw(wnd[3], 1, 0, "LINES: ");
+    mvwprintw(wnd[3], 2, 0, "LEVEL: ");
+
     for(int i=0; i<4; i++) 
         wrefresh(wnd[i]);
 
     doupdate();
 
-    sleep(3);
+    sleep(10);
 
     delwin(wnd[0]);
     delwin(wnd[1]);
