@@ -2,13 +2,17 @@
 #include <locale.h>
 #include <unistd.h>
 
+#include "game.h"
+
 int main(int args, char** argv)
 {
+    //setting
     setlocale(LC_ALL, "");
     initscr(); cbreak(); noecho();
     nonl();
     intrflush(stdscr, FALSE);
     keypad(stdscr, TRUE);
+    nodelay(stdscr, true);
 
     wnoutrefresh(stdscr);
     
@@ -27,6 +31,14 @@ int main(int args, char** argv)
     mvwprintw(wnd[3], 1, 0, "LINES: ");
     mvwprintw(wnd[3], 2, 0, "LEVEL: ");
 
+    //proc
+    game_init();
+
+    //draw
+    game_draw(wnd[0]);
+
+
+    //refresh
     for(int i=0; i<4; i++) 
         wrefresh(wnd[i]);
 
