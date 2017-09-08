@@ -14,7 +14,7 @@ int main(int args, char** argv)
     keypad(stdscr, TRUE);
     nodelay(stdscr, true);
 
-    wnoutrefresh(stdscr);
+    //wnoutrefresh(stdscr);
     
     WINDOW *wnd[4];
     wnd[0] = subwin(stdscr, 22 ,22,  1,  1);
@@ -24,28 +24,32 @@ int main(int args, char** argv)
     
     for(int i=0; i<3; i++) 
         box(wnd[i], ACS_VLINE, ACS_HLINE);
-
-    mvwprintw(wnd[1], 0, 2, " NEXT ");
-    mvwprintw(wnd[2], 0, 2, " HOLD ");
-    mvwprintw(wnd[3], 0, 0, "SCORE: ");
-    mvwprintw(wnd[3], 1, 0, "LINES: ");
-    mvwprintw(wnd[3], 2, 0, "LEVEL: ");
-
-    //proc
+    
     game_init();
 
-    //draw
-    game_draw(wnd[0]);
+    while(true){
+        mvwprintw(wnd[1], 0, 2, " NEXT ");
+        mvwprintw(wnd[2], 0, 2, " HOLD ");
+        mvwprintw(wnd[3], 0, 0, "SCORE: ");
+        mvwprintw(wnd[3], 1, 0, "LINES: ");
+        mvwprintw(wnd[3], 2, 0, "LEVEL: ");
 
+        //proc
+        game_proc();
 
-    //refresh
-    for(int i=0; i<4; i++) 
-        wrefresh(wnd[i]);
+        //draw
+        game_draw(wnd[0]);
 
-    doupdate();
+        //refresh
+        for(int i=0; i<4; i++){
+            wmove(wnd[i], 0,0);
+            wnoutrefresh(wnd[i]);
+        }
 
-    sleep(10);
+        refresh();
 
+        usleep(16666);
+    }
     delwin(wnd[0]);
     delwin(wnd[1]);
     delwin(wnd[2]);
